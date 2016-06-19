@@ -7,10 +7,6 @@
         <input type="hidden" name="commentable_id" value="{{ $content->getKey() }}">
         <input type="hidden" name="commentable_type" value="{{ get_class($content) }}">
 
-        @if($room)
-        <input type="hidden" name="room" value="{{ $room }}">
-        @endif
-
         <div class="field">
             <textarea name="body" placeholder="@lang('mural::mural.write_a_comment')" rows="5"></textarea>
         </div>
@@ -18,6 +14,6 @@
     </form>
 @else
     <div class="ui message warning">
-        @lang('mural::mural.must_login', ['link' => url('login')])
+        @lang('mural::mural.must_login', ['link' => url('/auth/login')])
     </div>
 @endif

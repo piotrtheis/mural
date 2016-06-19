@@ -4,15 +4,10 @@ Laravolt Mural bertujuan menyediakan fitur komentar yang siap dipakai dan mudah 
 
 Package ini masih dalam tahap pengembangan dan belum dianjurkan untuk digunakan dalam produksi.
 
-## Requirement
-* Jquery
-* Semantic-ui or Bootstrap
-
 ## Instalasi
 
 ### Update composer.json
 
-#### Untuk Laravel 5.2
 Bisa dengan menjalankan perintah:
 
 	composer require laravolt/mural
@@ -21,22 +16,12 @@ Atau menambahkan deklarasi berikut ke file composer.json:
 
     "require": {
         ...
-        "laravolt/mural": "^0.5"
+        "laravolt/mural": "^0.2"
     },
-
-#### Untuk Laravel 5.1
-
-Tambahkan deklarasi berikut ke file composer.json:
-
-    "require": {
-        ...
-        "laravolt/mural": "dev-mural-1.x"
-    }
 
 ### Service Provider
 
     Laravolt\Mural\ServiceProvider::class,
-
 ### Facade
 
     'Mural'  => Laravolt\Mural\Facade::class,
@@ -47,12 +32,6 @@ Tambahkan deklarasi berikut ke file composer.json:
 	php artisan migrate
 
 Ini akan menambahkan file migrasi baru `2015_08_17_101000_create_comments_table.php` sekaligus menjalan migrasi tersebut.	Tabel baru bernama `comments` akan ditambahkan ke basisdata.
-
-### Config mural.php
-
-Isi `default_commentable` dengan deklarasi class model yang bisa dikomentari
-
-    'default_commentable' => \App\Post::class,
 
 ## Penggunaan
 
@@ -86,41 +65,6 @@ Post::find(1)->comments()->paginate();
 Post::find(1)->comments()->orderBy('created_at', 'desc');
 ```
 
-Untuk model yang ditunjuk sebagai komentator, tambahkan interface `Commentator`.
-
-```php
-<?php
-
-namespace App;
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravolt\Mural\Contracts\Commentator;
-
-class User extends Authenticatable implements Commentator
-{
-    ...
-
-    public function getCommentatorNameAttribute()
-    {
-        // return atribut nama
-    }
-
-    public function getCommentatorAvatarAttribute()
-    {
-        // return atribut link avatar
-    }
-
-    public function getCommentatorPermalinkAttribute()
-    {
-        // return atribut link ke detail user
-    }
-
-    public function canModerateComment()
-    {
-        // return boolean
-    }
-}
-```
 ### Shortcut
 
 #### Menampilkan Widget Komentar
@@ -178,6 +122,10 @@ return [
     'default_commentable' => \App\Models\Post::class,
 ];
 ```
+
+## Requirement
+* jquery
+* semantic-ui or bootstrap
 
 ## Roadmap
 * Basic comment stream (done)

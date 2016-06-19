@@ -13,7 +13,7 @@ class Comment extends Model
 
     public function author()
     {
-        return $this->belongsTo(config('auth.providers.users.model'));
+        return $this->belongsTo(\App\User::class);
     }
 
     public function commentable()
@@ -31,19 +31,8 @@ class Comment extends Model
         return $query->where('id', '<', $beforeId);
     }
 
-    public function scopeRoom($query, $room)
-    {
-        if($room) {
-            $query->whereRoom($room);
-        } else {
-            $query->whereNull('room');
-        }
-
-        return $query;
-    }
-
     public function scopeSiblingsAndSelf($query)
     {
-        return $query->room($this->room)->where('commentable_id', $this->commentable_id)->where('commentable_type', $this->commentable_type);
+        return $query->where('commentable_id', $this->commentable_id)->where('commentable_type', $this->commentable_type);
     }
 }

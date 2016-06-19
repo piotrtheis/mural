@@ -1,7 +1,6 @@
 <div class="ui segment mural-container {{ $options->get('class') }}"
      data-id="{{ $content->getKey() }}"
      data-type="{{ get_class($content) }}"
-     data-room="{{ $room }}"
      data-sort="latest"
      data-page="1"
      data-url="{{ route('mural.index') }}"

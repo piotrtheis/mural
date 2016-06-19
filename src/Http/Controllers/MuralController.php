@@ -22,7 +22,7 @@ class MuralController extends Controller
     public function index(Request $request)
     {
         $content = Factory::create($request->get('id'), $request->get('type'));
-        $comments = Mural::getComments($content, $request->get('room'), ['sort' => $request->get('sort')]);
+        $comments = Mural::getComments($content, ['sort' => $request->get('sort')]);
 
         return view('mural::list', compact('comments', 'content'));
 
@@ -33,10 +33,8 @@ class MuralController extends Controller
         $json = ['status' => 0];
         $code = 500;
 
-        $room = $request->get('room');
-
         try {
-            $comment = Mural::addComment(Factory::create($request->get('commentable_id'), $request->get('commentable_type')), $request->get('body'), $room);
+            $comment = Mural::addComment(Factory::create($request->get('commentable_id'), $request->get('commentable_type')), $request->get('body'));
             $json['status'] = 1;
             $json['html'] = view('mural::item', compact('comment'))->render();
             $json['title'] = trans('mural::mural.title_with_count', ['count' => $comment->siblingsAndSelf()->has('author')->count()]);
